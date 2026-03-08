@@ -1,0 +1,22 @@
+0) You dumb.
+
+1) Make an core types and database types.
+Types:
+User:
+id - PRIMARY KEY
+password - STR
+username - STR
+email - STR
+
+APIResponce:
+status: "success" | "error"
+data: OBJECT
+error: STR
+
+DONE
+
+2) REGISTRATION - DONE
+
+3) AUTORIZATION - PENDING
+
+4) Some stuff?... Probably?...
