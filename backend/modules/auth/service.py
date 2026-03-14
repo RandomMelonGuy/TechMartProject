@@ -33,7 +33,7 @@ class AuthService:
             "exp": timestamp,
             "jti": str(uuid4())
         }
-        jwt = self.jwt.encode(payload, settings.jwtKey)
+        jwt = self.jwt.encode(payload, settings.JWTKEY)
         print(jwt)
         return jwt
 
@@ -43,5 +43,5 @@ class AuthService:
         return jwt
     
     def decode_jwt(self, jwt: str):
-        decoded = self.jwt.decode(jwt, settings.jwtKey, "HS256")
+        decoded = self.jwt.decode(jwt, settings.JWTKEY, "HS256")
         return decoded

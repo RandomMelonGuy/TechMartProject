@@ -22,7 +22,3 @@ def auth(data: AuthData, responce: Response) -> APIResponce:
 @router.get("/get_jwt")
 def get_jwt(req: Request, user: Dict[str, Any] = Depends(verify_user)):
     return user
-
-@router.get("/protected")
-def protected(req: Request, user: Dict[str, Any] = Depends(verify_user)):
-    return ":>"

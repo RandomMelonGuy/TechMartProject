@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    jwtKey: str = "SOMEIMPORTANTKEYTHATSHOULDNOTBELEAKED"
+    JWTKEY: str = "SOMEIMPORTANTKEYTHATSHOULDNOTBELEAKED"
+    DEBUG: bool = True
 
 settings = Settings()

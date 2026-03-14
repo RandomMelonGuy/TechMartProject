@@ -4,7 +4,7 @@ from data.database import engine
 from .types import RegisterData
 from passlib.hash import pbkdf2_sha256
 
-class RegisterDB:
+class RegisterService:
     def __init__(self):
         self.engine = engine
     

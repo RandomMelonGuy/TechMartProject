@@ -9,7 +9,7 @@ def verify_user(req: Request):
         raise HTTPException(403, "User not Authorized")
     
     try:
-        payload = jwt.decode(session, settings.jwtKey, ["HS256"], leeway=4)
+        payload = jwt.decode(session, settings.JWTKEY, ["HS256"], leeway=4)
         return payload
     except InvalidSignatureError as e:
         print(repr(e))

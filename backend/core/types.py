@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel, Field
 from pydantic import BaseModel
-from typing import Dict, Literal, Any, Optional
+from typing import Dict, Literal, Any, Optional, Sequence
+
 
 class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -10,14 +11,15 @@ class User(SQLModel, table=True):
 
 
 class Entity(SQLModel, table=True):
-    id: int
+    id: int | None = Field(default=None, primary_key=True)
     entity_type: str # Любое название по типу: team, company, order и т.п
     name: str
     description: str | None = None
-    metadata: str | None = None # JSON string
+    meta: Optional[str] = None
 
 
 class APIResponce(BaseModel):
     status: Literal["success", "error"]
     error: Optional[Any] = ""
-    data: Optional[Dict[str, Any]] = {}
+    data: Optional[Dict[str, Any] | Sequence[Any]] = {}
+
