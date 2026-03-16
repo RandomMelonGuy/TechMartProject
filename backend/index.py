@@ -10,6 +10,12 @@ from core.settings import settings
 
 from contextlib import asynccontextmanager
 from data.database import engine
+from fastapi.middleware.cors import CORSMiddleware
+
+origins = [
+    "http://127.0.0.1:3000"
+]
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -22,6 +28,9 @@ async def lifespan(app: FastAPI):
 
 
 server = FastAPI(lifespan=lifespan)
+
+server.add_middleware(CORSMiddleware, allow_origins=origins,allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+
 server.include_router(registerRouter, prefix="/register", tags=["Регистрация"])
 server.include_router(authRouter, prefix='/auth', tags=["Авторизация"])
 server.include_router(entityRouter, prefix="/entity", tags=["Сущности"])
