@@ -1,6 +1,6 @@
 from core.types import Entity
 from data.database import engine
-from sqlmodel import Session, select
+from sqlmodel import Session, select, delete
 
 class EntityService:
     def __init__(self):
@@ -37,11 +37,12 @@ class EntityService:
     def drop_entity(self, id: int):
         try:
             with Session(self.engine) as session:
-                statement = select(Entity).where(Entity.id == id)
-                entity = session.exec(statement).one()
-                session.delete(entity)
+                statement = delete(Entity).where(Entity.id == id)
+                entity = session.exec(statement)
                 session.commit()
-                return True
+                print(entity.rowcount)
+                if (entity.rowcount > 0): return True
+                return False
         except:
             return None
     

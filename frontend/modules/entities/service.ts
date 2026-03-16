@@ -1,6 +1,5 @@
 import request from "@/core/api";
 import { APIResponce, Entity } from "@/core/types";
-import { useState, useEffect } from "react";
 import { EntityFuncs } from "./types";
 
 const validate = (req: Entity): boolean => {
@@ -10,7 +9,29 @@ const validate = (req: Entity): boolean => {
     return false;
 }
 
-const useEntity = (req: Entity): EntityFuncs => {
-    const [entity, useEntity] = useState<Entity>({} as Entity);
+const useEntity = (): EntityFuncs => {
+    const create = async(req: Entity): Promise<APIResponce> => {
+        if (!validate(req)) return Promise.resolve({status: "error", error: "VALIDATION ERROR"})
+        const res = request("/entity/create", "post", req);
+        return res;
+    }
+
+    const find = async(id: number): Promise<APIResponce> => {
+        const res = request("/entity/find", "post", { id });
+        return res;
+    }
+
+    const with_type = async(type: string): Promise<APIResponce> => {
+        const res = request("/entity/with_type", "post", { type });
+        return res;
+    }
+
+    const drop = async(id: number): Promise<APIResponce> => {
+        const res = request("/entity/drop", "post", { id });
+        return res;
+    }
+
+    return {create, find, with_type, drop}
     
 }
+export default useEntity;

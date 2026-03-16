@@ -15,7 +15,7 @@ export type User = {
 }
 
 export type Entity = {
-    id: number,
+    id?: number,
     entity_type: string,
     name: string,
     description: string,

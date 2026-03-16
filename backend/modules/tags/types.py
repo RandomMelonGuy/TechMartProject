@@ -9,8 +9,8 @@ class Tag_Entity(SQLModel, table=True):
         UniqueConstraint("entity_id", "tag_id", name="UNIQUE_PAIRS"),
     )
     id: int | None = Field(default=None, primary_key=True)
-    entity_id: int | None = Field(default=None, foreign_key="entity.id")
-    tag_id: int | None = Field(default=None, foreign_key="tag.id")
+    entity_id: int | None = Field(default=None, foreign_key="entity.id", ondelete="CASCADE")
+    tag_id: int | None = Field(default=None, foreign_key="tag.id", ondelete="CASCADE")
 
 class IDRequest(BaseModel):
     id: int

@@ -29,6 +29,12 @@ def attach_tag(req: ConnectionRequest):
         return APIResponce(status="success")
     return APIResponce(status="error")
 
+@router.post("/detach")
+def attach_tag(req: ConnectionRequest):
+    success = service.detach(req.entity_id, req.tag_id)
+    if success:
+        return APIResponce(status="success")
+    return APIResponce(status="error")
 
 
 @router.post("/get_with")

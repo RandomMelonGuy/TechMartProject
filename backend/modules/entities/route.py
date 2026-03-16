@@ -24,7 +24,7 @@ def find_entity(data: IDRequest):
     return APIResponce(status="error")
 
 
-@router.post("/get_type")
+@router.post("/with_type")
 def get_type(req: GetTypeRequest):
     entities = service.get_type(req.type)
     if entities:
@@ -32,7 +32,7 @@ def get_type(req: GetTypeRequest):
     return APIResponce(status="error")
 
 
-@router.post("/drop_entity")
+@router.post("/drop")
 def drop(req: IDRequest):
     success = service.drop_entity(req.id)
     if success:
