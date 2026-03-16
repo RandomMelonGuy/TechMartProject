@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel, Field, Relationship, UniqueConstraint
-
+from pydantic import BaseModel
 class Tag(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     tag: str = Field(unique=True)
@@ -11,3 +11,14 @@ class Tag_Entity(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     entity_id: int | None = Field(default=None, foreign_key="entity.id")
     tag_id: int | None = Field(default=None, foreign_key="tag.id")
+
+class IDRequest(BaseModel):
+    id: int
+
+class TagRequest(BaseModel):
+    tag: str
+
+class ConnectionRequest(BaseModel):
+    entity_id: int
+    tag_id: int
+
