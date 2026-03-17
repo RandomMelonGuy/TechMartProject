@@ -11,7 +11,8 @@ type ErrorResponce = {
 export type User = {
     id: number,
     username: string,
-    email: string
+    email: string,
+    role: Roles
 }
 
 export type Entity = {
@@ -21,6 +22,8 @@ export type Entity = {
     description: string,
     meta: string // JSON string
 }
+
+export type Roles = "user" | "mentor"
 
 export type Tag = {
     id: number,

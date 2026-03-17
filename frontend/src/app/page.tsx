@@ -4,11 +4,13 @@ import useRegister from "@/modules/register/service"
 import useAuth from "@/modules/auth/service";
 import { Entity } from "@/core/types";
 import useEntity from "@/modules/entities/service";
+import {Roles} from "@/core/types"
 
 
 export default function Home() {
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
+  const [role, setRole] = useState<Roles>("user");
   const [entity, setEntity] = useState<Entity>({id:0, meta: "", name: "", description: "", entity_type: ""});
   const {create, find, drop, with_type} = useEntity();
   const [type, setType] = useState<string>("");
@@ -17,7 +19,7 @@ export default function Home() {
   const [authLoading, auth] = useAuth();
 
   const clickHandler = async() => {
-    const data = await register({password, username, email});
+    const data = await register({password, username, email, role});
     if (data.status === "success"){
       console.log(data.data);
     }
@@ -83,6 +85,7 @@ export default function Home() {
       <input onChange={e => {setPassword(e.target.value)}} value={password} placeholder="pass" />
       <input onChange={e => {setUsername(e.target.value)}} value={username} placeholder="username" />
       <input onChange={e => {setEmail(e.target.value)}} value={email} placeholder="email" />
+      <input onChange={e => {setRole(e.target.value)}} value={role} placeholder="role" />
       <h2>{loading ? "LOADING" : ""}</h2>
       <button onClick={clickHandler}>SEND</button>
     </div>

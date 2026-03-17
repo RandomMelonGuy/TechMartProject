@@ -6,7 +6,6 @@ from enum import Enum
 class Roles(str, Enum):
     USER = "user"
     MENTOR = "mentor"
-    ORG = "org"
     
 
 
