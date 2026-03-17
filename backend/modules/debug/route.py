@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from core.security import verify_user
-from .service import get_users, list_connections, list_entities, list_tags
+from .service import get_users, list_connections, list_entities, list_tags, list_profiles
 
 router = APIRouter()
 
@@ -23,3 +23,7 @@ def entities():
 @router.get("/tags")
 def tags():
     return list_tags()
+
+@router.get("/profiles")
+def profiles():
+    return list_profiles()
