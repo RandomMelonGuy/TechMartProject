@@ -1,6 +1,7 @@
 from data.database import engine
 from sqlmodel import Session, select
 from core.types import User, Entity
+from modules.profiles.types import Profile
 from modules.tags.types import Tag_Entity, Tag
 import jwt
 
@@ -37,6 +38,15 @@ def list_tags():
     try:
         with Session(engine) as session:
             data = session.exec(select(Tag)).all()
+        
+        return data
+    except Exception as e:
+        return repr(e)
+
+def list_profiles():
+    try:
+        with Session(engine) as session:
+            data = session.exec(select(Profile)).all()
         
         return data
     except Exception as e:
