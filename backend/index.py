@@ -11,6 +11,8 @@ from modules.debug.route import router as debugRouter
 from modules.profiles.route import router as profileRouter
 from modules.entities.achivements.route import router as AchRouter
 from core.image_to_folder import router as IMGRouter
+from modules.mentor.route import router as mentorRouter
+from modules.search.route import router as SearchRouter
 from core.settings import settings
 
 from contextlib import asynccontextmanager
@@ -45,7 +47,8 @@ server.include_router(tagRouter, prefix="/tag", tags=["Теги"])
 server.include_router(profileRouter, prefix="/profile", tags=["Профили"])
 server.include_router(AchRouter, prefix="/achivement", tags=["Грамоты"])
 server.include_router(IMGRouter, prefix="/img", tags=["Изображения"])
-
+server.include_router(mentorRouter, prefix="/relationships", tags=["Отношения"])
+server.include_router(SearchRouter, prefix="/search", tags=["Поиск"])
 if settings.DEBUG:
     server.include_router(debugRouter, prefix="/debug", tags=["Дебаг"])
 
