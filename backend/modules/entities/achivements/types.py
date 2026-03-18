@@ -1,21 +1,15 @@
-from core.types import User
-from sqlmodel import SQLModel, Field, UniqueConstraint
 from pydantic import BaseModel
-
-"""class User_Achivement(SQLModel, table=True):
-    __table_args__ = (
-        UniqueConstraint("user_id", "ach_id", name="UNIQUE_PAIRS"),
-    )
-    id: int | None = Field(default=None, primary_key=True)
-    user_id: int = Field(foreign_key="user.id", ondelete="CASCADE")
-    ach_id: int = Field(foreign_key="entity.id", ondelete="CASCADE")"""
+from typing import List, Optional
 
 class AchData(BaseModel):
     attached_to: int
     name: str
     desc: str
-    filepath: str # Путь до файла
+    filepath: str
     org: str
+    participants: List[int] = []
+    status: int = 0  # 0: pending, 1: approved
+    verified_by: Optional[int] = None
 
 class UpdateAch(AchData):
     entity_id: int
