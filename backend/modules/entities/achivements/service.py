@@ -17,7 +17,12 @@ class AchivementService:
         return False
     
     def create_meta(self, data: AchData) -> Dict[str, Any]:
-        return {"attached_to": data.attached_to, "org": data.org, "filepath": data.filepath}
+        return {
+            "attached_to": data.attached_to,
+            "org": data.org,
+            "filepath": data.filepath,
+            "participants": data.participants
+        }
 
     def create_achivement(self, data: AchData):
         if not self.check_attachment(data): return False
