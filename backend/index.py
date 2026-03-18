@@ -15,6 +15,7 @@ from modules.mentor.route import router as mentorRouter
 from modules.search.route import router as SearchRouter
 from modules.entities.comments.route import router as commentRouter
 from modules.entities.conexionteam.route import router as graphRouter
+from modules.AI.route import router as AIRouter
 from core.settings import settings
 
 from contextlib import asynccontextmanager
@@ -53,6 +54,7 @@ server.include_router(mentorRouter, prefix="/relationships", tags=["Отноше
 server.include_router(SearchRouter, prefix="/search", tags=["Поиск"])
 server.include_router(commentRouter, prefix="/comments", tags=["Коментарии"])
 server.include_router(graphRouter, prefix="/graph", tags=["Графы"])
+server.include_router(AIRouter, prefix="/autoAICompletion", tags=["Автозаполнение"])
 if settings.DEBUG:
     server.include_router(debugRouter, prefix="/debug", tags=["Дебаг"])
 
