@@ -5,7 +5,7 @@ async function request(url: string, method: "get" | "post", data?: {}, headers?:
     console.log(fullUrl);
     try{
         if (method === "get"){
-            const res: Promise<APIResponce> = (await fetch(fullUrl, {headers: {...headers}})).json();
+            const res: Promise<APIResponce> = (await fetch(fullUrl, {credentials: "include",headers: {...headers}})).json();
             return res;
         }
         else{

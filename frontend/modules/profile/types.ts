@@ -1,8 +1,8 @@
 export type Profile = {
-    id: number,
     user_id: number,
     username: string,
-    desc: string | undefined
+    desc: string | undefined,
+    ico: string | undefined
 }
 
 export type ProfileForm = {
