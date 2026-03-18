@@ -14,6 +14,7 @@ from core.image_to_folder import router as IMGRouter
 from modules.mentor.route import router as mentorRouter
 from modules.search.route import router as SearchRouter
 from modules.entities.comments.route import router as commentRouter
+from modules.entities.conexionteam.route import router as graphRouter
 from core.settings import settings
 
 from contextlib import asynccontextmanager
@@ -51,6 +52,7 @@ server.include_router(IMGRouter, prefix="/img", tags=["Изображения"])
 server.include_router(mentorRouter, prefix="/relationships", tags=["Отношения"])
 server.include_router(SearchRouter, prefix="/search", tags=["Поиск"])
 server.include_router(commentRouter, prefix="/comments", tags=["Коментарии"])
+server.include_router(graphRouter, prefix="/graph", tags=["Графы"])
 if settings.DEBUG:
     server.include_router(debugRouter, prefix="/debug", tags=["Дебаг"])
 

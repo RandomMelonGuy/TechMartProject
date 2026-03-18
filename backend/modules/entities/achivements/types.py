@@ -1,6 +1,7 @@
 from core.types import User
 from sqlmodel import SQLModel, Field, UniqueConstraint
 from pydantic import BaseModel
+from typing import List
 
 """class User_Achivement(SQLModel, table=True):
     __table_args__ = (
@@ -16,6 +17,7 @@ class AchData(BaseModel):
     desc: str
     filepath: str # Путь до файла
     org: str
+    participants: List[int] = []
 
 class UpdateAch(AchData):
     entity_id: int
