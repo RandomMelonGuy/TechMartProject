@@ -6,7 +6,7 @@ from core.types import APIResponce
 from .service import AIService
 
 router = APIRouter()
-ai_service = AIService(auth_token="ТВОЙ_КЛЮЧ_GIGACHAT")
+ai_service = AIService(auth_token="MDE5YzMyYjEtNDgzMC03NWNlLWFjMjYtODVkNjFkNTYwNjVjOmE1NTg0MWUyLWI2YjItNDQ3My1iNjY5LTU0NWQyOGNiMWEwNQ==")
 
 
 @router.post("/process-document")

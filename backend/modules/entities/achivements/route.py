@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from core.types import APIResponce, Entity
+from core.types import APIResponce
 from .service import AchivementService
-from .types import AchData, UpdateAch, IDRequest
+from .types import AchData, UpdateAch
 
 router = APIRouter()
 service = AchivementService()
@@ -10,29 +10,24 @@ service = AchivementService()
 def create(data: AchData):
     success = service.create_achivement(data)
     if success:
-        return APIResponce(status="success")
-    return APIResponce(status="error")
+        return APIResponce(status="success", data={"message": "Created"})
+    return APIResponce(status="error", error="User not found or DB error")
 
 @router.post("/update")
 def update(data: UpdateAch):
-    ach = AchData(org=data.org, name=data.name, desc=data.desc, filepath=data.filepath)
-    success = service.update_achivement(ach, data.entity_id)
+    # Передаем data (как AchData) и отдельно id
+    success = service.update_achivement(data, data.entity_id)
     if success:
-        return APIResponce(status="success")
-    return APIResponce(status="error")
+        return APIResponce(status="success", data={"message": "Updated"})
+    return APIResponce(status="error", error="Update failed")
 
-@router.post("/get_user_achivements")
-def get_ach(data: IDRequest):
-    try:
-        ach = service.get_user_achivements(data.id)
-        return APIResponce(status="success", data=ach)
-    except Exception as e:
-        print(repr(e))
-        return APIResponce(status="error", error="CAN NOT GET ACHIVEMENTS")
-    
-@router.post("/drop")
-def drop(data: IDRequest):
-    success = service.drop_achivement(data.id)
-    if success:
+@router.get("/get/{user_id}")
+def get_user_ach(user_id: int):
+    data = service.get_user_achivements(user_id)
+    return APIResponce(status="success", data=data)
+
+@router.delete("/delete/{ach_id}")
+def delete_ach(ach_id: int):
+    if service.drop_achivement(ach_id):
         return APIResponce(status="success")
     return APIResponce(status="error")

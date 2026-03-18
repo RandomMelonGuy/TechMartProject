@@ -16,6 +16,8 @@ from modules.search.route import router as SearchRouter
 from modules.entities.comments.route import router as commentRouter
 from modules.entities.conexionteam.route import router as graphRouter
 from modules.AI.route import router as AIRouter
+from modules.entities.confirmation.route import router as confirmationRouter
+from modules.entities.gamification.route import router as gameRouter
 from core.settings import settings
 
 from contextlib import asynccontextmanager
@@ -52,9 +54,11 @@ server.include_router(AchRouter, prefix="/achivement", tags=["Грамоты"])
 server.include_router(IMGRouter, prefix="/img", tags=["Изображения"])
 server.include_router(mentorRouter, prefix="/relationships", tags=["Отношения"])
 server.include_router(SearchRouter, prefix="/search", tags=["Поиск"])
-server.include_router(commentRouter, prefix="/comments", tags=["Коментарии"])
+server.include_router(commentRouter, prefix="/comments", tags=["Комментарии"])
 server.include_router(graphRouter, prefix="/graph", tags=["Графы"])
 server.include_router(AIRouter, prefix="/autoAICompletion", tags=["Автозаполнение"])
+server.include_router(confirmationRouter, prefix="/confirmation", tags=["Проверка достижения"])
+server.include_router(gameRouter, prefix="/gamification", tags=["Игровые механики"])
 if settings.DEBUG:
     server.include_router(debugRouter, prefix="/debug", tags=["Дебаг"])
 
