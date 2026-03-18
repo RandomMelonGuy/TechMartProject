@@ -1,0 +1,139 @@
+.container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* ТВОЙ НОВЫЙ ПЕРЕИМЕНОВАННЫЙ ФОН */
+  background-image: url('/main-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  min-height: 520px;
+
+  /* Фон маленького меню (светлая рваная бумага) */
+  background-color: #ffffff;
+  background-image: url('/new-bg-torn.jpg');
+  background-size: cover;
+  background-position: center;
+
+  border-radius: 40px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 35px 24px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-clip: padding-box;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 45px;
+}
+
+/* СТРЕЛКА НАЗАД — БЕЛАЯ */
+.backButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.logoWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* КАРТОЧКИ ИНПУТОВ: объемные и прозрачные внутри */
+.inputCard {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  border: 1px solid #000000;
+  border-bottom: 4px solid #333333; /* Эффект толщины */
+  box-sizing: border-box;
+}
+
+.inputField {
+  width: 100%;
+  padding: 18px;
+  background: transparent; /* Прозрачность для текстуры */
+  border: none;
+  outline: none;
+  font-size: 18px;
+  font-weight: 900;
+  color: #000000;
+  text-align: center;
+}
+
+.inputField::placeholder {
+  color: #000000;
+  opacity: 0.6;
+}
+
+/* БАЗОВЫЙ СТИЛЬ ОБЪЕМНОЙ КНОПКИ */
+.menuButton {
+  width: 100%;
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 19px;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  box-sizing: border-box;
+}
+
+/* СИНЯЯ КНОПКА "ДАЛЬШЕ" */
+.nextButton {
+  margin-top: 10px;
+  background: rgba(26, 48, 74, 0.1);
+  color: #1a304a;
+  border: 1px solid #1a304a;
+  border-bottom: 5px solid #0d1a29; /* Темный объемный низ */
+}
+
+.nextButton:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.forgotPass {
+  margin-top: 30px;
+  background: none;
+  border: none;
+  color: #000000;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}

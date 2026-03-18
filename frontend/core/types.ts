@@ -5,7 +5,7 @@ type SuccessResponce = {
 
 type ErrorResponce = {
     status: "error",
-    error: string
+    error: any
 }
 
 export type User = {

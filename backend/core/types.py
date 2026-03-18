@@ -14,7 +14,7 @@ class User(SQLModel, table=True):
     username: str = Field(unique=True)
     role: Roles = Field(default="user")
     password: str
-    email: str
+    email: str | None = Field(default=None)
 
 
 class Entity(SQLModel, table=True):

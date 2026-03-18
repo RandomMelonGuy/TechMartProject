@@ -1,141 +1,112 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
-  display: flex;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
-}
-
-.main {
-  display: flex;
+.container {
+  color: white;
+  position: relative;
   min-height: 100vh;
   width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
+  
+  /* Отключаем flex, чтобы разрешить текстовому потоку огибать элементы */
+  display: block; 
+  
+  background-color: #050505;
+  background-image: url('./paperBg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  
+  /* Добавляем отступы, чтобы контент не лип к краям и хедеру */
+  padding: 140px 40px 40px 40px; 
+  box-sizing: border-box;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.glowTop {
+  position: absolute;
+  top: -10%;
+  left: -5%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, transparent 70%);
+  filter: blur(80px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.glowBottom {
+  position: absolute;
+  bottom: -15%;
+  right: -5%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(91, 99, 211, 0.2) 0%, transparent 70%);
+  filter: blur(80px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.header {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+  width: 90%;
+  max-width: 1100px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
 }
 
-.intro {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
-}
+.navRight { display: flex; align-items: center; gap: 20px; }
+.loginLink { color: rgba(255, 255, 255, 0.9); font-size: 14px; cursor: pointer; }
+.menuIcon { cursor: pointer; display: flex; align-items: center; color: white; }
 
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
-}
-
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
-}
-
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.ctas {
-  display: flex;
-  flex-direction: row;
+/* КАРТОЧКА: теперь она "плавает" справа */
+.card {
+  position: relative;
+  z-index: 5;
   width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
+  max-width: 410px;
+  
+  float: right;           /* Прижимаем вправо */
+  margin-left: 40px;      /* Текст слева не будет прилипать */
+  margin-bottom: 20px;    /* Текст снизу не будет прилипать */
+  
+  padding: 45px 35px;
+  background: rgba(245, 245, 245, 0.92);
+  backdrop-filter: blur(25px);
+  border-radius: 45px;
+  box-shadow: 0 0 50px rgba(59, 130, 246, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: #1a1c20;
 }
 
-.ctas a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
-  cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
-}
-
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
-}
-
-a.secondary {
-  border-color: var(--button-secondary-border);
-}
-
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
-}
-
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
-
-  .page {
-    --background: #000;
-    --foreground: #000;
-
-    --text-primary: #ededed;
-    --text-secondary: #999;
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
-  }
-}
+.title { font-size: 21px; font-weight: 800; margin-bottom: 35px; line-height: 1.25; }
+.inputField { width: 100%; padding: 18px 26px; border-radius: 50px; border: 1px solid #e2e8f0; background: #ffffff; font-size: 16px; margin-bottom: 16px; outline: none; }
+.inputField::placeholder { color: #a0aec0; }
+.submitBtn { width: 100%; padding: 18px; background-color: #5b63d3; color: white; border: none; border-radius: 50px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.2s; }
+.submitBtn:hover { background-color: #4a52c2; }
+.submitBtn:active { transform: scale(0.98); }
+.sparkle { position: absolute; color: #cbd5e0; font-size: 14px; pointer-events: none; }

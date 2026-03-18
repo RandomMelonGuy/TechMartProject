@@ -15,8 +15,8 @@ def auth(data: AuthData, responce: Response) -> APIResponce:
         jwt = service.auth_request(data)
         responce.set_cookie(key="session", value=jwt, secure=False, samesite="lax")
         return APIResponce(status="success")
-    except:
-        return APIResponce(status="error", error="DB AUTH ERROR: NOT FOUND")
+    except Exception as e:
+        return APIResponce(status="error", error=repr(e))
 
 
 @router.get("/get_jwt")

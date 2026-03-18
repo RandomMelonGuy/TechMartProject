@@ -1,5 +1,6 @@
 from core.types import Entity, User
 from .types import AchData, UpdateAch
+from sqlmodel import Session, select
 from ..service import EntityService
 from data.database import engine
 from typing import Dict, Any
@@ -11,10 +12,14 @@ class AchivementService:
         self.engine = engine
     
     def check_attachment(self, data: AchData):
-        entity = self.ent.find_entity(data.attached_to)
-        if entity:
-            return True
-        return False
+        try:
+            with Session(self.engine) as session:
+                stat = select(User).where(User.id == data.attached_to)
+                user = session.exec(stat).one()
+                return True
+        except Exception as e:
+            print(repr(e))
+            return False
     
     def create_meta(self, data: AchData) -> Dict[str, Any]:
         return {"attached_to": data.attached_to, "org": data.org, "filepath": data.filepath}

@@ -1,3 +1,4 @@
+"use client"
 import { Profile, ProfileForm } from "./types";
 import {useState, useEffect} from "react";
 import { APIResponce } from "@/core/types";

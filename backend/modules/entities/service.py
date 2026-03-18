@@ -39,7 +39,8 @@ class EntityService:
                 statement = select(Entity).where(Entity.id == id)
                 data = session.exec(statement).one()
                 return data
-        except:
+        except Exception as e:
+            print(repr(e))
             return None
     
     def get_type(self, type: str):
