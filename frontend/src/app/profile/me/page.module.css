@@ -1,158 +1,290 @@
-/* Внешний контейнер */
 .container {
   min-height: 100vh;
-  width: 100%;
+  background: url('/main-bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  padding: 40px 20px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 20px;
-  box-sizing: border-box;
-
-  /* НОВЫЙ ФОН НА ВЕСЬ ЭКРАН */
-  background-image: url('/new-bg-torn.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Центральная матовая карточка */
-.content {
-  position: relative;
+.wrapper {
   width: 100%;
-  max-width: 420px;
-  min-height: 650px;
-
-  /* Делаем фон матовым, чтобы он выделялся на рваной бумаге */
-  background: rgba(255, 255, 255, 0.9);
-
-  /* Эффект размытия фона за карточкой (backdrop-filter) */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  overflow: hidden;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
-  padding: 30px 24px;
-  box-sizing: border-box;
+  gap: 25px;
 }
 
-/* Хедер с логотипом */
-.topHeader {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 25px;
+.glassCard {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  padding: 25px;
 }
 
-/* Карточка профиля */
-.profileCard {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.03); /* Легкая подложка */
-  border-radius: 25px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
+.headerContent { display: flex; align-items: center; gap: 20px; }
+.iconCircle {
+  width: 55px; height: 55px; background: #000; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 26px;
+}
+
+.header h1 { margin: 0; font-size: 24px; color: #000; font-weight: 800; }
+.header p { margin: 5px 0 0; color: #1a1a1a; font-weight: 600; }
+
+/* СЕТКА СТАТИСТИКИ — ФИКС ОТСТУПОВ */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  margin-bottom: 35px;
-  box-sizing: border-box;
 }
 
-.avatarWrapper {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 2px solid #000;
-  overflow: hidden;
-  background: #fff;
-  flex-shrink: 0;
-}
-
-.avatar {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.userInfo {
+.statsGrid .glassCard {
   display: flex;
   flex-direction: column;
-}
-
-.userName {
-  font-size: 20px;
-  font-weight: 900;
-  color: #000;
-  margin: 0;
-  text-transform: uppercase;
-  font-family: sans-serif;
-}
-
-.userRole {
-  font-size: 15px;
-  color: #555;
-  font-weight: 600;
-  margin: 4px 0 0 0;
-}
-
-/* Навигация */
-.menuNavigation {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* Кнопки меню */
-.menuButton {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid #e0e0e0;
-  border-bottom: 3px solid #d0d0d0;
-  border-radius: 20px;
-  padding: 16px 22px;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px 10px; /* Внутренние отступы, чтобы текст не жал в края */
+}
+
+.label { font-size: 11px; color: #333; text-transform: uppercase; font-weight: 800; margin-bottom: 5px; }
+.value { font-size: 24px; font-weight: 900; color: #000; }
+
+/* КРАСИВЫЙ СКРОЛЛБАР */
+.feedSection { max-height: 500px; display: flex; flex-direction: column; }
+.scrollContainer { overflow-y: auto; padding-right: 15px; }
+
+.scrollContainer::-webkit-scrollbar { width: 4px; }
+.scrollContainer::-webkit-scrollbar-track { background: transparent; }
+.scrollContainer::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.textSide h3 { color: #000; font-weight: 800; margin-bottom: 5px; }
+.date { color: #0044cc; font-weight: 800; font-size: 12px; }
+.textSide p { color: #1a1a1a; font-size: 14px; }
+
+.imagePlaceholder {
+  height: 120px; background: rgba(0, 0, 0, 0.05); border: 2px dashed #000;
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  color: #000; font-weight: 800;
+}
+
+/* НАСТАВНИКИ В РЯД */
+.mentorsList {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.mentorProfile {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 12px;
+  border-radius: 16px;
+}
+
+.mentorAvatar {
+  width: 40px; height: 40px; background: #000; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+
+.mentorInfo h4 { margin: 0; font-size: 15px; color: #000; font-weight: 800; }
+.mentorInfo p { margin: 0; font-size: 12px; color: #333; }
+
+/* ФУТЕР */
+.mentorAccess { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.mentorInput {
+  flex: 1; background: rgba(0, 0, 0, 0.05); border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px; padding: 12px; color: #000; font-weight: 600; outline: none;
+}
+.submitBtn { background: #000; color: #fff; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 700; cursor: pointer; }
+
+@media (max-width: 850px) {
+  .statsGrid, .achievementBox, .mentorAccess, .mentorsList {
+    grid-template-columns: 1fr; flex-direction: column;
+  }
+}
+
+/* --- Стили для карточки достижения --- */
+
+.achievementBox {
+  display: grid;
+  grid-template-columns: 1fr 200px; /* Текст слева, медиа справа */
+  gap: 25px;
+  padding: 25px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.titleRow h3 {
+  margin: 0;
   font-size: 18px;
+  color: #000;
+  font-weight: 800;
+}
+
+/* Статусы */
+.statusBadge {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+}
+
+.status0 { background: rgba(0, 0, 0, 0.05); color: #666; }    /* На проверке */
+.status1 { background: rgba(0, 68, 204, 0.1); color: #0044cc; } /* Подтверждено */
+.status2 { background: rgba(239, 68, 68, 0.1); color: #ef4444; } /* Отклонено */
+
+/* Организация */
+.orgInfo {
+  margin-bottom: 12px;
+}
+
+.orgName {
+  font-size: 12px;
   font-weight: 700;
+  color: #444;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+/* Описание */
+.achievementDesc {
   color: #1a1a1a;
-  cursor: pointer;
-  transition: all 0.1s ease;
-  font-family: sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 15px 0;
 }
 
-.menuButton:hover {
-  background: #ffffff;
-  transform: translateY(-2px);
-  border-color: #ccc;
+/* Участники */
+.participantsCount {
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.menuButton:active {
-  transform: translateY(1px);
-  border-bottom-width: 1px;
+/* Изображение и плейсхолдер */
+.mediaSide {
+  display: flex;
+  align-items: flex-start;
 }
 
-.arrowIcon {
-  color: #b0b0b0;
-  font-weight: bold;
+.achievementImage {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Кнопка выхода */
-.logoutButton {
-  margin-top: 25px;
-  background: rgba(217, 83, 79, 0.1); /* Бледный красный фон */
-  color: #d9534f;
-  border-color: #d9534f;
-  border-bottom-color: #c9302c;
-  justify-content: center; /* Текст по центру */
+.imagePlaceholder {
+  width: 100%;
+  height: 130px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 2px dashed rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 12px;
+  transition: all 0.3s ease;
 }
 
-.logoutButton:hover {
-  background: #d9534f;
-  color: #fff;
+.imagePlaceholder svg {
+  opacity: 0.5;
+}
+
+/* --- Состояние ошибки / Пустое состояние --- */
+
+.errorState {
+  padding: 40px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  border: 1px dashed rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.errorMessage {
+  color: #000;
+  font-weight: 800;
+  font-size: 16px;
+  margin: 0 0 5px 0;
+}
+
+.errorState span {
+  color: #666;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Адаптив */
+@media (max-width: 850px) {
+  .achievementBox {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .mediaSide {
+    order: -1; /* Изображение сверху на мобилках */
+  }
+  
+  .achievementImage, .imagePlaceholder {
+    height: 180px;
+  }
+}
+/* Состояние загрузки */
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Улучшенный errorState для разных типов */
+.errorState.success {
+  background: rgba(0, 150, 0, 0.1);
+  border-color: rgba(0, 150, 0, 0.3);
+}
+
+.errorState.success .errorMessage {
+  color: #006600;
+}
+
+/* Анимация появления */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.errorState {
+  animation: slideIn 0.3s ease;
 }

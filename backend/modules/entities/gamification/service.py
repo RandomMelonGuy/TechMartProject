@@ -37,7 +37,8 @@ class GamificationService:
                 })
             else:
                 break
-
+            
+        
         return {
             "user_id": user_id,
             "total_xp": total_xp,

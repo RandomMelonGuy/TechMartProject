@@ -22,7 +22,8 @@
       "@/*": ["./src/*"],
       "@/core/*": ["./core/*"],
       "@/modules/*": ["./modules/*"],
-      "@/public/*": ["./public/*"]
+      "@/public/*": ["./public/*"],
+      "@/components/*": ["./components/*"]
     }
   },
   "include": [
