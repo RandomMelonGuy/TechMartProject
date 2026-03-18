@@ -5,6 +5,7 @@ from jwt import InvalidSignatureError
 
 def verify_user(req: Request):
     session = req.cookies.get("session")
+    print(session)
     if not session:
         raise HTTPException(403, "User not Authorized")
     
