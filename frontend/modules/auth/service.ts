@@ -1,27 +1,54 @@
+"use client"
 import { APIResponce } from "@/core/types";
 import AuthData from "./types";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import request from "@/core/api";
 
-const validate = (data: AuthData): boolean => {
-    if (data.password !== "" && data.username !== ""){
-        return true;
+const validate = (data: AuthData): Record<string, string> => {
+    const errors: Record<string, string> = {}; 
+    
+    if (!data.username || data.username.trim() === '') {
+        errors.username = "Введите имя пользователя";
     }
-    return false;
+    
+    if (!data.password || data.password === '') {
+        errors.password = "Введите пароль";
+    }
+    
+    return errors;
 }
 
-function useAuth(): [boolean, (req: AuthData) => Promise<APIResponce>] {
+function useAuth() {
     const [loading, setLoading] = useState<boolean>(false);
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [serverError, setServerError] = useState<string | null>(null);
 
-    const auth = async(data: AuthData): Promise<APIResponce> =>{
-        if (!validate(data)) return Promise.resolve({status: "error", error: "VERIFICATION ERROR"});
+    const auth = async(data: AuthData): Promise<APIResponce> => {
+        setErrors({});
+        setServerError(null);
+
+        const validationErrors = validate(data);
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return { status: "error", error: "VALIDATION_ERROR" };
+        }
+
         setLoading(true);
-        const res = await request("/auth/", "post", data);
-        setLoading(false);
-        return res;
+        try {
+            const res = await request("/auth/", "post", data);
+            if (res.status === "error") {
+                setServerError(res.error || "Неверный логин или пароль");
+            }
+            return res;
+        } catch (e) {
+            setServerError("Ошибка сети");
+            return { status: "error", error: "NETWORK_ERROR" };
+        } finally {
+            setLoading(false);
+        }
     }
 
-    return [loading, auth]
+    return { loading, auth, errors, serverError };
 }
 
 export default useAuth;

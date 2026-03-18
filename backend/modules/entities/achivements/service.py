@@ -11,6 +11,17 @@ class AchivementService:
     def __init__(self):
         self.ent = EntityService()
         self.engine = engine
+    
+    def check_attachment(self, data: AchData):
+        try:
+            with Session(self.engine) as session:
+                stat = select(User).where(User.id == data.attached_to)
+                user = session.exec(stat).one()
+                return True
+        except Exception as e:
+            print(repr(e))
+            return False
+    
 
     def check_user_exists(self, user_id: int) -> bool:
         with Session(self.engine) as session:

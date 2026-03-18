@@ -17,6 +17,6 @@ def register(data: RegisterData):
         responce: APIResponce = APIResponce(status="success", data=resData)
         return responce
     except Exception as e:
-        responce: APIResponce = APIResponce(status="error", error="DB EXCEPTION: REGISTER")
+        responce: APIResponce = APIResponce(status="error", error=repr(e))
         print(repr(e))
         return responce
