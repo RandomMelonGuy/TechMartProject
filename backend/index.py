@@ -1,5 +1,7 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from sqlmodel import SQLModel
+
 
 from modules.register.route import router as registerRouter
 from modules.auth.route import router as authRouter
@@ -8,6 +10,7 @@ from modules.tags.route import router as tagRouter
 from modules.debug.route import router as debugRouter
 from modules.profiles.route import router as profileRouter
 from modules.entities.achivements.route import router as AchRouter
+from core.image_to_folder import router as IMGRouter
 from core.settings import settings
 
 from contextlib import asynccontextmanager
@@ -31,6 +34,8 @@ async def lifespan(app: FastAPI):
 
 server = FastAPI(lifespan=lifespan)
 
+server.mount("/static", StaticFiles(directory="static"), name='static')
+
 server.add_middleware(CORSMiddleware, allow_origins=origins,allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 server.include_router(registerRouter, prefix="/register", tags=["Регистрация"])
@@ -39,6 +44,7 @@ server.include_router(entityRouter, prefix="/entity", tags=["Сущности"])
 server.include_router(tagRouter, prefix="/tag", tags=["Теги"])
 server.include_router(profileRouter, prefix="/profile", tags=["Профили"])
 server.include_router(AchRouter, prefix="/achivement", tags=["Грамоты"])
+server.include_router(IMGRouter, prefix="/img", tags=["Изображения"])
 
 if settings.DEBUG:
     server.include_router(debugRouter, prefix="/debug", tags=["Дебаг"])
