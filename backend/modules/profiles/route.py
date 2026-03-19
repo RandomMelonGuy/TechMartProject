@@ -16,9 +16,9 @@ def self_profile(req: Request, user: Dict[str, Any] = Depends(verify_user)):
         return APIResponce(status="success", data=profile)
     return APIResponce(status="error", error="CAN NOT GET PROFILE")
 
-@router.post("/get")
-def get_profile(user_id: IDRequest):
-    profile = service.get_profile(user_id.id)
+@router.get("/get/{user_id}")
+def get_profile(user_id: int):
+    profile = service.get_profile(user_id)
     if profile:
         return APIResponce(status="success", data=profile)
     return APIResponce(status="error", error="CAN NOT GET PROFILE")

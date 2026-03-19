@@ -22,4 +22,18 @@ def get_users_mentors(req: IDRequest):
     if mentors:
         return APIResponce(status="success", data=mentors)
     return APIResponce(status="error", error="CAN NOT FETCH MENTORS")
+
+@router.post('/get_mentors')
+def get_users_mentors(req: IDRequest):
+    st = service.get_mentors_students(req.id)
+    if st:
+        return APIResponce(status="success", data=st)
+    return APIResponce(status="error", error="CAN NOT FETCH MENTORS")
+
+@router.post("/get_rating")
+def get_rating(req: IDRequest):
+    st = service.get_rating(req.id)
+    if st:
+        return APIResponce(status="success", data=st)
+    return APIResponce(status="error")
     
