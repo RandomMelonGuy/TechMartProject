@@ -19,4 +19,8 @@ async function request(url: string, method: "get" | "post", data?: {}, headers?:
     }
 }
 
+export const getUserGraph = async (userId: number) => {
+    return await request(`/profiles/graph/${userId}`, "get");
+};
+
 export default request;

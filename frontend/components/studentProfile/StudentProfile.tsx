@@ -4,6 +4,7 @@ import styles from './page.module.css';
 import useProfile from '@/modules/profile/service';
 import { Profile } from '@/modules/profile/types';
 import { APIResponce, Entity, User } from '@/core/types';
+import UserGraph from '../Graph/UserGraph';
 import request from '@/core/api';
 
 type Achivement = {
@@ -258,7 +259,14 @@ const handleAddMentor = async () => {
     </div>
   )}
 </footer>
-
+<section style={{ marginBottom: '2.5rem' }}>
+          <div className={styles.glassCard} style={{ padding: '2rem' }}>
+            <h3 style={{ marginBottom: '1.5rem', fontWeight: 300, letterSpacing: '1px' }}>
+              КАРТА ПРОЕКТНЫХ СВЯЗЕЙ
+            </h3>
+            <UserGraph userId={1} />
+          </div>
+        </section>
       </main>
     </div>
   );

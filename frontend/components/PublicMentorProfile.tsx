@@ -41,7 +41,7 @@ export default function PublicMentorProfile({ userId }) {
       {/* Статистика */}
       <div className={styles.statsGrid}>
         <div className={styles.statCard}>
-          <span className={styles.statValue}>{students.length}</span>
+          <span className={styles.statValue}>{students.length ? students.length : 0}</span>
           <span className={styles.statLabel}>Учеников</span>
         </div>
       </div>

@@ -8,8 +8,10 @@ import { User } from '@/core/types';
 import { Profile } from '@/modules/profile/types';
 import Link from "next/link"
 import { Stats } from '../studentProfile/StudentProfile';
+import { useRouter } from 'next/navigation';
 
 export default function MentorProfile({userID}: {userID: number}) {
+  const router = useRouter();
     const [students, setStudents] = useState<Array<User>>();
     const [profile, updateProfile] = useProfile(userID);
     const [rating, setRating] = useState<Array<Stats>>();
@@ -107,7 +109,7 @@ const get_rating = (rating: Array<Stats>, user_id: number): number => {
                       </div>
                     </div>
                     
-                    <button className={styles.actionBtn}>В профиль</button>
+                    <button className={styles.actionBtn} onClick={() => router.push(`/profile/${s.}`)}>В профиль</button>
                   </div>
                 ))}
               </div>
