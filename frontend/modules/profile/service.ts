@@ -9,13 +9,10 @@ const useProfile = (user_id?: number): [Profile, (data: ProfileForm) => Promise<
 
     useEffect(() => {
         const fetchProfile = async () => {
-            // Выбираем конфиг запроса в зависимости от наличия ID
-            const url = user_id !== undefined ? "/profile/get/" : "/profile/me";
-            const method = user_id !== undefined ? "post" : "get";
-            const body = user_id !== undefined ? { user_id } : undefined;
+            // Выбираем конфиг запроса в зависимости 
 
             try {
-                const data = await request(url, method, body);
+                const data = await request(`/profile/get/${user_id}`, "get");
                 if (data.status === "success") {
                     setProfile(data.data as Profile);
                 } else {

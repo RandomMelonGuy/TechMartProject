@@ -1,0 +1,239 @@
+/* --- КОРРЕКТИРОВКА ПОД ТЕМНО-СИНИЙ ФОН --- */
+
+.container {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(rgba(10, 25, 47, 0.6), rgba(10, 25, 47, 0.6)), url('/main-bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ШАПКА ПРОФИЛЯ */
+.header {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 45px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.info h1 {
+  margin: 0;
+  font-size: 38px;
+  color: #ffffff; /* ТОЛЬКО БЕЛЫЙ */
+  font-weight: 900;
+  text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+.role {
+  display: inline-block;
+  margin-top: 10px;
+  background: rgba(59, 130, 246, 0.4);
+  color: #ffffff;
+  padding: 5px 15px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* СТАТИСТИКА (Стеклянные карточки) */
+.statsGrid {
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.statCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.statValue {
+  display: block;
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+}
+
+.statLabel {
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 5px;
+}
+
+/* СЕКЦИИ */
+.section {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.section h2 {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  border-left: 4px solid #3b82f6;
+  padding-left: 15px;
+}
+
+/* ДОСТИЖЕНИЯ (Белые стеклянные карточки) */
+.achievementsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.achievementCard {
+  background: rgba(255, 255, 255, 0.95); /* Почти белый для контраста текста */
+  border-radius: 22px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.achievementCard:hover {
+  transform: translateY(-5px);
+}
+
+.achievementIcon {
+  width: 50px;
+  height: 50px;
+  background: #f0f7ff;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.achievementInfo h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f172a; /* Темный текст на белом фоне */
+}
+
+.achievementOrg {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 700;
+}
+
+/* НАСТАВНИКИ (Белые стеклянные карточки) */
+.mentorsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.mentorCard {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 18px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+  min-width: 280px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.mentorAvatar {
+  width: 48px;
+  height: 48px;
+  background: #0f172a;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.mentorInfo h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.mentorInfo p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #3b82f6;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* КНОПКА КОЛЛАБОРАЦИИ */
+.collabButton {
+  width: 100%;
+  max-width: 400px;
+  padding: 18px;
+  background: #ffffff;
+  color: #0f172a;
+  border: none;
+  border-radius: 18px;
+  font-size: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.collabButton:hover {
+  transform: scale(1.03);
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+/* АДАПТИВНОСТЬ */
+@media (max-width: 850px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  .info h1 {
+    font-size: 30px;
+  }
+}

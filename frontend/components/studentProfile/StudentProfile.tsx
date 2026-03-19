@@ -34,7 +34,7 @@ type Meta = {
             "confirmed_count": confirmed_count,
             "badges": unlocked_badges */
 
-type Stats = {
+export type Stats = {
   user_id: number,
   total_xp: number,
   level: number,
@@ -45,13 +45,13 @@ type Badge = {
   
 }
 
-export default function AchievementsPage() {
-  const [profile, updateProfile] = useProfile();
+export default function StudentProfile({userID}: {userID: number}) {
+  const [profile, updateProfile] = useProfile(userID);
   const [mentors, setMentors] = useState<Array<User>>();
   const [achievements, setAchivements] = useState<Array<Achivement>>();
   const [stats, setStats] = useState<Stats>();
   const [login, setLogin] = useState<string>("");
-  const user_id = profile.user_id;
+  //const user_id = profile.user_id;
   const [mentorError, setMentorError] = useState('');
 const [mentorSuccess, setMentorSuccess] = useState('');
 
@@ -66,7 +66,7 @@ const handleAddMentor = async () => {
   setMentorSuccess('');
 
   try {
-    const res = await request("/relationships/assign-mentor", "post", {login, user_id});
+    const res = await request("/relationships/assign-mentor", "post", {login, user_id: userID});
 
     if (res.status === 'success') {
       setMentorSuccess('Наставник успешно добавлен!');
@@ -75,6 +75,7 @@ const handleAddMentor = async () => {
       setMentorError(res.error || 'Ошибка при добавлении наставника');
     }
   } catch (err) {
+    console.log(err);
     setMentorError('Ошибка соединения с сервером');
   } finally {
     
@@ -86,7 +87,7 @@ const handleAddMentor = async () => {
 };
   useEffect(() => {
     async function fetchAchivements(user_id: number){
-      const res = await request(`/achivement/get/${user_id}`, "get");
+      const res = await request(`/achivement/get/${userID}`, "get");
       if (res.status === "success"){
         const data = (res.data as Array<Entity>).map(el => {
           const meta: Meta = JSON.parse(el.meta);
@@ -116,17 +117,11 @@ const handleAddMentor = async () => {
       console.log(`STATS: ${res}`);
     }
 
-    fetchAchivements(user_id);
-    fetchMentors(user_id);
-    fetchStats(user_id);
-  }, [user_id])
-
-  const addMentor = async() => {
-    const res = await request("/relationship/assign-mentor", "post", {login});
-    if (res.status === "success"){
-
-    }
-  }
+    fetchAchivements(userID);
+    fetchMentors(userID);
+    fetchStats(userID);
+  }, [userID]
+);
 
   return (
     <div className={styles.container}>

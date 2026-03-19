@@ -2,8 +2,8 @@ from sqlmodel import SQLModel, Field, UniqueConstraint
 from pydantic import BaseModel
 
 class Mentor_User(SQLModel, table=True):
-    __tableargs__ = (
-        UniqueConstraint("user_id", "mentor_id")
+    __table_args__ = (
+        UniqueConstraint("user_id", "mentor_id"),
     )
     id: int | None = Field(default=None, primary_key=True)
     user_id: int | None = Field(default=None, foreign_key="user.id")

@@ -1,13 +1,58 @@
+"use client"
 import React from 'react';
+import { useEffect, useState } from 'react';
+import useProfile from '@/modules/profile/service';
 import styles from './page.module.css';
+import request from '@/core/api';
+import { User } from '@/core/types';
+import { Profile } from '@/modules/profile/types';
+import Link from "next/link"
+import { Stats } from '../studentProfile/StudentProfile';
 
-export default function MentorProfile() {
-  const students = Array(8).fill({
+export default function MentorProfile({userID}: {userID: number}) {
+    const [students, setStudents] = useState<Array<User>>();
+    const [profile, updateProfile] = useProfile(userID);
+    const [rating, setRating] = useState<Array<Stats>>();
+  /*const students = Array(8).fill({
     name: 'Алексей Федоров',
     course: 'Python Про',
     progress: 68,
     status: 'активен'
-  });
+  });*/
+
+  useEffect(() => {
+
+    const getStudents = async(userID: number) => {
+        const res = await request("/relationships/get_mentors", "post", {id: userID})
+        if (res.status === "success"){
+            setStudents(res.data);
+            return;
+        }
+        console.log(res);
+    }
+
+    const getRating = async(userID: number) => {
+        const res = await request("/relationships/get_rating", "post", {id: userID})
+        if (res.status === "success"){
+            setRating(res.data);
+            console.log(res);
+            return;
+        }
+        console.log(res);
+    }
+
+    getRating(userID);
+    getStudents(userID);
+  }, [userID])
+
+const get_rating = (rating: Array<Stats>, user_id: number): number => {
+    // Ищем индекс пользователя в массиве рейтинга
+    const index = rating?.findIndex(item => item.user_id === user_id);
+    
+    // Если пользователь найден, возвращаем место (индекс + 1)
+    // Если не найден, возвращаем -1 или 0 (выбирай сам)
+    return index !== -1 ? index + 1 : 0;
+}
 
   return (
     <div className={styles.container}>
@@ -17,7 +62,7 @@ export default function MentorProfile() {
         <header className={styles.header}>
           <div className={styles.titleInfo}>
             <h1>Личный кабинет Наставника</h1>
-            <p>Приветствуем, Алексей Смирнов!</p>
+            <p>Приветствуем, {profile.username}</p>
           </div>
           <div className={styles.searchBox}>
             <input type="text" placeholder="Поиск ученика..." className={styles.searchInput} />
@@ -31,16 +76,16 @@ export default function MentorProfile() {
           <aside className={styles.leftCol}>
             <div className={`${styles.card} ${styles.statCard}`}>
               <h3>Количество учеников</h3>
-              <div className={styles.bigNumber}>24</div>
+              <div className={styles.bigNumber}>{students?.length}</div>
             </div>
 
             <div className={`${styles.card} ${styles.ratingCard}`}>
               <h3>Рейтинг</h3>
               <div className={styles.ratingList}>
-                {[1, 2, 3, 4, 5].map((pos) => (
-                  <div key={pos} className={styles.ratingItem}>
-                    <span>{pos}. Елена Петрова</span>
-                    <span className={styles.score}>4.9</span>
+                {rating?.map((pos, i) => (
+                  <div key={i} className={styles.ratingItem}>
+                    <span>{i+1}. {students?.filter(el => el.id == pos.user_id)[0].username}</span>
+                    <span className={styles.score}>{pos.total_xp}</span>
                   </div>
                 ))}
               </div>
@@ -52,19 +97,17 @@ export default function MentorProfile() {
             <div className={`${styles.card} ${styles.profilesCard}`}>
               <h3>Профили учеников</h3>
               <div className={styles.studentsGrid}>
-                {students.map((s, i) => (
+                {students?.map((s, i) => (
                   <div key={i} className={styles.studentSmallCard}>
                     <div className={styles.studentInfo}>
                       <div className={styles.avatarMini} />
                       <div>
-                        <h4>{s.name}</h4>
-                        <span>{s.course}</span>
+                        <h4>{s.username}</h4>
+                        <span>В рейтинге: {get_rating(rating, s.id)}</span>
                       </div>
                     </div>
-                    <div className={styles.progressBar}>
-                      <div className={styles.progressFill} style={{width: `${s.progress}%`}} />
-                    </div>
-                    <button className={styles.actionBtn}>Связаться</button>
+                    
+                    <button className={styles.actionBtn}>В профиль</button>
                   </div>
                 ))}
               </div>
