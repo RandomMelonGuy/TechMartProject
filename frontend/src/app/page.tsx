@@ -1,120 +1,31 @@
-"use client"
-import { useState } from "react";
-import useRegister from "@/modules/register/service"
-import useAuth from "@/modules/auth/service";
-import { Entity } from "@/core/types";
-import useEntity from "@/modules/entities/service";
-import {Roles} from "@/core/types"
+import React from 'react';
+import styles from './page.module.css';
+import UserGraph from '../components/Graph/UserGraph';
 
-
-export default function Home() {
-  const [password, setPassword] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const [role, setRole] = useState<Roles>("user");
-  const [entity, setEntity] = useState<Entity>({id:0, meta: "", name: "", description: "", entity_type: ""});
-  const {create, find, drop, with_type} = useEntity();
-  const [type, setType] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [loading, register] = useRegister();
-  const [authLoading, auth] = useAuth();
-
-  const clickHandler = async() => {
-    const data = await register({password, username, email, role});
-    if (data.status === "success"){
-      console.log(data.data);
-    }
-    else{
-      console.log(data.error)
-    }
-  }
-
-  const clickHandler1 = async() => {
-    const data = await auth({password, username});
-    if (data.status === "success"){
-      console.log(data.data);
-    }
-    else{
-      console.log(data.error)
-    }
-  }
-
- const clickHandler2 = async() => {
-  const res = await create(entity);
-  if (res.status == "success"){
-    console.log(res)
-  }
-  else{
-    console.log(res.error)
-  }
-  
- }
-
- const clickHandler3 = async() => {
-  console.log(entity.id, typeof entity.id)
-    if (!entity.id) return
-    const e = find(entity.id);
-    console.log(await e);
- }
-
- const clickHandler4 = async() => {
-  const res = await with_type(type);
-  if (res.status === "success"){
-    console.log(res.data);
-  }
-  else{
-    console.log(res.error)
-  }
- }
-
- const clickHandler5 = async() => {
-  if (entity.id === undefined) return
-  const res = await drop(entity.id);
-  console.log(res);
-  if (res.status == "success"){
-    console.log(`DATA: ${JSON.stringify(res.data)}`);
-  }
-  else{
-    console.log(`ERROR: ${res.error}`);
-  }
- }
-
+export default function MentorCabinet() {
   return (
-    <>
-    <h1>Register</h1>
-    <div>
-      <input onChange={e => {setPassword(e.target.value)}} value={password} placeholder="pass" />
-      <input onChange={e => {setUsername(e.target.value)}} value={username} placeholder="username" />
-      <input onChange={e => {setEmail(e.target.value)}} value={email} placeholder="email" />
-      <input onChange={e => {setRole(e.target.value)}} value={role} placeholder="role" />
-      <h2>{loading ? "LOADING" : ""}</h2>
-      <button onClick={clickHandler}>SEND</button>
-    </div>
+    <div className={styles.container}>
+      <main className={styles.content}>
+        <header className={styles.header}>
+          <div className={styles.titleGroup}>
+            <h1>Личный кабинет Наставника</h1>
+            <p>Проект СтарПроф</p>
+          </div>
+        </header>
 
-    <h1>Auth</h1>
-    <div>
-      <input onChange={e => {setPassword(e.target.value)}} value={password} placeholder="pass" />
-      <input onChange={e => {setUsername(e.target.value)}} value={username} placeholder="username" />
-      <h2>{authLoading ? "LOADING" : ""}</h2>
-      <button onClick={clickHandler1}>SEND</button>
-    </div>
+        <section style={{ marginBottom: '2.5rem' }}>
+          <div className={styles.glassCard} style={{ padding: '2rem' }}>
+            <h3 style={{ marginBottom: '1.5rem', fontWeight: 300, letterSpacing: '1px' }}>
+              КАРТА ПРОЕКТНЫХ СВЯЗЕЙ
+            </h3>
+            <UserGraph userId={1} />
+          </div>
+        </section>
 
-    <h1>Entity</h1>
-    <div>
-      <input onChange={e => {setEntity(ent => {return {...ent, entity_type: e.target.value}})}} value={entity.entity_type} placeholder="entity_type" />
-      <input onChange={e => {setEntity(ent => {return {...ent, name: e.target.value}})}} value={entity.name} placeholder="name" />
-      <input onChange={e => {setEntity(ent => {return {...ent, description: e.target.value}})}} value={entity.description} placeholder="desc" />
-      <input onChange={e => {setEntity(ent => {return {...ent, meta: e.target.value}})}} value={entity.meta} placeholder="meta" />
-      <button onClick={clickHandler2}>CREATE</button>
-      <br />
-      <input onChange={e => {setEntity(ent => {return {...ent, id: Number(e.target.value)}})}} value={entity.id} placeholder="id" />
-      <button onClick={clickHandler3}>FIND</button>
-      <br />
-      <input onChange={e => setType(e.target.value)} placeholder="type" />
-      <button onClick={clickHandler4}>GET TYPE</button>
-      <br />
-      <input onChange={e => {setEntity(ent => {return {...ent, id: Number(e.target.value)}})}} value={entity.id} placeholder="id" />
-      <button onClick={clickHandler5}>DROP</button>
+        <div className={styles.mainGrid}>
+            {/* Твои блоки с учениками и статистикой */}
+        </div>
+      </main>
     </div>
-    </>
-  )
+  );
 }

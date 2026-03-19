@@ -1,22 +1,37 @@
 import { APIResponce } from "./types";
 
-async function request(url: string, method: "get" | "post", data?: {}, headers?: HeadersInit): Promise<APIResponce>{
+async function request(url: string, method: "get" | "post", data?: {}, headers?: HeadersInit): Promise<APIResponce> {
     const fullUrl = `http://127.0.0.1:8000${url}`;
-    console.log(fullUrl);
-    try{
-        if (method === "get"){
-            const res: Promise<APIResponce> = (await fetch(fullUrl, {headers: {...headers}})).json();
-            return res;
+
+    try {
+        const options: RequestInit = {
+            method: method.toUpperCase(),
+            headers: {
+                'Content-Type': 'application/json',
+                ...headers
+            },
+            credentials: "include"
+        };
+
+        if (method === "post" && data) {
+            options.body = JSON.stringify(data);
         }
-        else{
-            const res: Promise<APIResponce> = (await fetch(fullUrl, {credentials: "include",method: "POST", body: JSON.stringify(data), headers: {'Content-Type':  "application/json", ...headers}})).json();
-            return res;
+
+        const response = await fetch(fullUrl, options);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-    }
-    catch(e){
-        console.log(e);
-        return Promise.resolve({status: "error", error: "CONNECTION LOST"})
+
+        return await response.json();
+    } catch (e) {
+        console.error("API Request Error:", e);
+        return { status: "error", error: "CONNECTION_LOST" };
     }
 }
+
+export const getUserGraph = async (userId: number) => {
+    return await request(`/profiles/graph/${userId}`, "get");
+};
 
 export default request;
